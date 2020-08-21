@@ -63,7 +63,9 @@ def input_code():
 
         try:
             # checks to see if there is a number in input
-            _ = int(user_input)
+            input_nospace = user_input.replace(" ", "")
+            print(input_nospace)
+            _ = int(input_nospace)
 
         # checks to see if the user has entered no numbers
         # accepts input
@@ -81,13 +83,13 @@ def input_code():
 
         # checks if the user has typed anything
         # does not accept nothing
-        if len(user_input.strip()) == 0:
-            print("Please actually type something!")
+        if len(user_input.strip()) == 0 or len(user_input.strip()) == 1:
+            print("Please put in a valid input!")
             continue
 
         # checks the input for character length
         # does not accept more than 30 characters
-        elif len(user_input) >= 30:
+        if len(user_input) >= 30:
             print("Please enter a shorter message.")
             continue
 
@@ -292,11 +294,11 @@ def web_scraper():
             promotion = container.div.p.text
         except AttributeError:
 
-            # if there isn't an attribute or rating on a product, writing 'none' in the ratings place
+            # if there isn't an attribute or promotion on a product, writing 'none' in the ratings place
             promotion = "none"
 
         # writing the results of the web-scraper to the CSV file, as it loops around until it reaches the bottom of the list/ last container on the page
-        file.write(str(brand) + "," + str(model.replace(",", "|")) + "," + str(price) + "," + str(origin_price) + "," + str(rating) + "/[5]," + str(promotion.replace(",", "-")) + "\n")
+        file.write(str(brand) + "," + str(model.replace(",", "|")) + "," + str(price) + "$USD," + str(origin_price) + "$USD," + str(rating) + "/[5]," + str(promotion.replace(",", "-")) + "\n")
 
     # closing the CSV file to allow user to open it
     file.close()
@@ -315,3 +317,6 @@ def run():
     filename = web_scraper()
 
     print("Search finished! Thank you for using the newegg.com web-scraper. \nYour results have been written to a CSV file! \nYour CSV file is called " + str(filename) + "! Your file directory is: \n" + os.getcwd() + "\\products.csv")
+
+
+web_scraper()
