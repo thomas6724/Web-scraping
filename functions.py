@@ -82,15 +82,11 @@ def input_code():
         misspelled = constants.SPELL.unknown(user_input.split())
 
         # checks if the user has typed anything
-        # does not accept nothing
-        if len(user_input.strip()) == 0 or len(user_input.strip()) == 1:
-            print("Please put in a valid input!")
-            continue
-
+        # does not accept single letters or symbols or simply spaces
         # checks the input for character length
         # does not accept more than 30 characters
-        if len(user_input) >= 30:
-            print("Please enter a shorter message.")
+        if len(user_input.strip()) <= 1 or len(user_input.strip()) >= 30:
+            print("Please put in a valid input!")
             continue
 
         # checks the input for word count
@@ -317,6 +313,3 @@ def run():
     filename = web_scraper()
 
     print("Search finished! Thank you for using the newegg.com web-scraper. \nYour results have been written to a CSV file! \nYour CSV file is called " + str(filename) + "! Your file directory is: \n" + os.getcwd() + "\\products.csv")
-
-
-web_scraper()
